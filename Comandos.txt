@@ -1,0 +1,71 @@
+./Game --help
+
+./Game --list
+
+make clean
+make all
+
+./Game Demo Demo Demo Demo -s 30 -i default.cnf -o default.out
+
+To watch a match, open the viewer file viewer.html with your browser and load the file default.out
+----------------------------------------------
+
+   * Returns a copy of the cell at (i, j).
+  Cell cell (int i, int j) const;
+  
+   * Returns the information of the unit with (unit) identifier id.
+   * Units are identified with natural numbers from 0 to nb_units() - 1.
+  Unit unit (int id) const;
+  
+   * Returns the number of cities in the game.
+  int nb_cities () const;
+
+   * Returns the identifier of the player who last conquered the city
+   * with identifier id, -1 if the city has never been conquered.
+  int city_owner(int id) const;
+  
+   * Returns the ids of all the orks of a player.
+  vector<int> orks(int pl);
+  
+   * Returns player id
+  int me();
+
+   * Devuelbe la ronda actual
+  int round();
+  
+  vector<int> my_orks = orks(me()); // Get the id's of my orks.
+  
+  ----------------------
+  
+  struct Unit {
+  int id;        // The unique id for this unit during the game.
+  int player;    // The player that owns this unit.
+  Pos pos;       // The position on the board.
+  int health;    // The health of the unit.
+  
+struct Cell {
+  CellType type; // The type of cell.
+  int   unit_id; // The id of the unit on the cell if any, -1 otherwise.
+  int   city_id; // If type == CITY, the id of the city, -1 otherwise.
+  int   path_id; // If type == PATH, the id of the path, -1 otherwise.
+  
+enum Dir {
+  BOTTOM,    // South
+  RIGHT,     // East
+  TOP,       // North
+  LEFT,      // West
+  NONE,      // No direction
+  DIR_SIZE   // Artificial value, for iterating.
+
+struct Pos {
+  int i, j;
+
+enum CellType {
+  WATER,
+  GRASS,
+  FOREST,
+  SAND,
+  CITY,
+  PATH,
+  CELL_TYPE_SIZE  // Artificial value, for iterating.
+
